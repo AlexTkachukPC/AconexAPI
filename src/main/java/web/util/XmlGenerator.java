@@ -1,24 +1,23 @@
 package web.util;
 
-import web.domain.Mail;
 import web.domain.MailFormField;
+import web.domain.Mail;
 
 import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 public class XmlGenerator {
 
-    public static String[] identifiers = {
+    private static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+    private static SimpleDateFormat dateFormat = new SimpleDateFormat("YYYY-MM-dd");
+
+    private static String[] identifiers = {
             "NcrType_singleSelect",
             "Drawingreference_singleLineText",
             "SpeccontractReference_singleLineText",
@@ -35,9 +34,7 @@ public class XmlGenerator {
             "ProposedDisposition_singleSelect"
     };
 
-    public static SimpleDateFormat dateFormat = new SimpleDateFormat("YYYY-MM-dd");
-
-    public static String[] values = {
+    private static String[] values = {
             "Quality",
             "N/A",
             "N/A",
@@ -51,36 +48,58 @@ public class XmlGenerator {
             "N/A",
             "N/A",
             "N/A",
-
+            "N/A"
 
     };
 
 
-    public static void main(String[] args) {
-
-        LocalDateTime time = LocalDateTime.of(LocalDate.now(), LocalTime.of(0, 0, 0));
-        DateTimeFormatter pattern = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+    public static byte[] generateXmlMail(int totalAttachmentCount,
+                                         String attribute1,
+                                         String attribute2,
+                                         String attribute3,
+                                         long ccUserId,
+                                         boolean confidential,
+                                         int responseRequired,
+                                         Date date,
+                                         boolean richMailText,
+                                         String mailSubject,
+                                         long toUserId,
+                                         long mailTypeId) {
 
         List<MailFormField> mailFormFieldList = new ArrayList<>();
-        for(int i = 0; i < values.length; i++)
+        for (int i = 0; i < values.length; i++)
             mailFormFieldList.add(new MailFormField(identifiers[i], values[i]));
 
-        Mail mail = new Mail(0, "Systems", "Systems", "TTR - General", 268830196L, false, 2,
-                time.format(pattern).toString(), false, "subject test", 268977889L, 268436355L);
+        Mail mail = new Mail(
+                totalAttachmentCount,
+                attribute1,
+                attribute2,
+                attribute3,
+                ccUserId,
+                confidential,
+                responseRequired,
+                sdf.format(date),
+                richMailText,
+                mailSubject,
+                toUserId,
+                mailTypeId,
+                mailFormFieldList);
 
+        ByteArrayOutputStream byteArrayOutputStream = null;
         try {
-            File file = new File("C:\\Users\\AlexT\\Desktop\\AconexTest\\src\\main\\resources\\mail_test.xml");
             JAXBContext jaxbContext = JAXBContext.newInstance(Mail.class);
             Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
 
-            // output pretty printed
             jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
 
-            //jaxbMarshaller.marshal(customer, file);
-            //jaxbMarshaller.marshal(customer, System.out);
+            byteArrayOutputStream = new ByteArrayOutputStream();
+            jaxbMarshaller.marshal(mail, byteArrayOutputStream);
 
-        } catch (JAXBException e) {
+
+        } catch (Exception e) {
             e.printStackTrace();
+        } finally {
+            return byteArrayOutputStream.toByteArray();
         }
     }
 }

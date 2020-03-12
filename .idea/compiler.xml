@@ -8,6 +8,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="AconexTest" />
+        <module name="AconexAPIV2" />
       </profile>
     </annotationProcessing>
   </component>

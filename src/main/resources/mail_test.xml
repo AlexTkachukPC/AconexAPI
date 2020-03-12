@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Mail>
+    <TotalAttachmentCount>0</TotalAttachmentCount>
+    <Attribute1>Systems</Attribute1>
+    <Attribute2>Systems</Attribute2>
+    <Attribute3>TTR - General</Attribute3>
+    <CcUserId>268830196</CcUserId>
+    <Confidential>false</Confidential>
+    <ResponseRequired>2</ResponseRequired>
+    <ResponseRequiredDate>2020-03-05T17:37:39.576Z</ResponseRequiredDate>
+    <RichMailText>false</RichMailText>
+    <MailSubject>subject test</MailSubject>
+    <ToUserId>268977889</ToUserId>
+    <MailTypeId>268436355</MailTypeId>
+    <MailFormFields>
+        <MailFormField identifier="NcrType_singleSelect">Quality</MailFormField>
+        <MailFormField identifier="Drawingreference_singleLineText">N/A</MailFormField>
+        <MailFormField identifier="SpeccontractReference_singleLineText">N/A</MailFormField>
+        <MailFormField identifier="OpenedBy_singleSelect">QC</MailFormField>
+        <MailFormField identifier="ResponsiblePerson_singleLineText">N/A</MailFormField>
+        <MailFormField identifier="DateOpened_date">2020-03-05</MailFormField>
+        <MailFormField identifier="NcrStatus_singleSelect">Open</MailFormField>
+        <MailFormField identifier="ExpectedClosingDate_date">2020-03-05</MailFormField>
+        <MailFormField identifier="NcrLevel_singleSelect">1</MailFormField>
+        <MailFormField identifier="ElementNamecode_singleLineText">N/A</MailFormField>
+        <MailFormField identifier="DescriptionOfTheDeficiency_multiLineText">N/A</MailFormField>
+        <MailFormField identifier="CauseOfDeficiency_singleSelect">N/A</MailFormField>
+        <MailFormField identifier="ProposedCorrectiveAction_multiLineText">N/A</MailFormField>
+        <MailFormField identifier="ProposedDisposition_singleSelect">N/A</MailFormField>
+    </MailFormFields>
+</Mail>

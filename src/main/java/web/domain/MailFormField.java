@@ -1,8 +1,6 @@
 package web.domain;
 
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.*;
 
 @XmlRootElement
 public class MailFormField {
@@ -30,7 +28,7 @@ public class MailFormField {
         return value;
     }
 
-    @XmlElement
+    @XmlValue
     public void setValue(String value) {
         this.value = value;
     }
