@@ -27,16 +27,10 @@ public class MailService {
                 "subject test",
                 268977889L,
                 268436355L);
-        //byte[] xmlBytes = Files.readAllBytes(Paths.get("/Users/aleksandrtkachuk/IdeaProjects/AconexAPIV2/src/main/resources/mail_test.xml"));
-        //byte[] xmlBytes = MailService.class.getClassLoader().getResourceAsStream("mail_test.xml").readAllBytes();
-
-        //it works:)
-        //MailServiceV2 mailServiceV2 = new MailServiceV2();
-        //System.out.println(mailServiceV2.createMail("268440297", new String(xmlBytes)));
-
-        //it works as well!
         System.out.println(createMail("268440297", xmlBytes));
     }
+
+
 
     public static String createMail(String project_id, byte[] xmlBytes) throws IOException {
 

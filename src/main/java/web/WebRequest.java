@@ -2,7 +2,10 @@ package web;
 
 import org.apache.commons.codec.binary.Base64;
 import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -62,7 +65,8 @@ public class WebRequest {
                     sb.append(line);
                 }
                 rd.close();
-                return sb.toString();
+//                return sb.toString();
+                return getSentMailId(sb.toString());
 
         } catch (Exception e) {
             try {
@@ -75,12 +79,38 @@ public class WebRequest {
                         sb.append(line + '\n');
                     }
                     rd.close();
-                    return sb.toString();
+                    //return sb.toString();
+                    return getErrorMessage(sb.toString());
 
             } catch (Exception ex) {
                 System.out.println("Please check your Internet connection\n" +
                         e.getMessage());
             }
+        }
+        return null;
+    }
+
+    public static String getSentMailId(String response) {
+        NodeList list = getNodeList(response);
+        return list.item(0).getTextContent();
+    }
+
+    public static String getErrorMessage(String response) {
+        NodeList list = getNodeList(response);
+        return list.item(1).getTextContent();
+    }
+
+    private static NodeList getNodeList(String response) {
+        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder builder = null;
+        try {
+            builder = factory.newDocumentBuilder();
+
+            Document document = builder.parse(new InputSource(new StringReader(response)));
+            Node root = document.getDocumentElement();
+            return root.getChildNodes();
+        }  catch (ParserConfigurationException | SAXException | IOException e) {
+            e.printStackTrace();
         }
         return null;
     }
